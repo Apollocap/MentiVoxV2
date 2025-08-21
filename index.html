@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MentiVox – Empower Your Growth</title>
+  <style>
+    :root {
+      --brand:#2c2e6a;   /* dark purple header */
+      --brand2:#3c3f82;  /* lighter purple bar */
+      --accent:#4cafef;  /* bright blue for buttons */
+      --link:#0066cc;
+      --bg:#f3f4f8;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:#111}
+
+    /* ---------- TOPBAR ---------- */
+    .topbar{
+      position:sticky; top:0; z-index:1000;
+      background:var(--brand); color:#fff;
+      display:grid; grid-template-columns:auto 160px 1fr auto;
+      align-items:center; gap:12px; padding:8px 12px;
+    }
+    .icon-btn{background:none;border:0;color:#fff;cursor:pointer}
+    .icon-btn span{display:block;width:18px;height:2px;background:#fff;margin:3px 0}
+    .logo{color:#fff;text-decoration:none;font-weight:700;font-size:1.4rem}
+    .deliver-to{display:flex;align-items:center;gap:8px}
+    .deliver-to small{opacity:.8;display:block}
+    .search{display:grid;grid-template-columns:110px 1fr 44px;background:#fff;border-radius:6px;overflow:hidden}
+    .search select,.search input{border:0;padding:10px}
+    .search button{border:0;background:#febd69;font-weight:700;cursor:pointer}
+    .quick-actions{display:flex;align-items:center;gap:18px}
+    .quick-actions a{color:#fff;text-decoration:none}
+    .quick-actions small{display:block;opacity:.8}
+    .quick-actions strong{display:block}
+
+    /* ---------- CATEGORY BAR ---------- */
+    .catbar{
+      position:sticky; top:54px; z-index:900;
+      display:flex; align-items:center; gap:16px;
+      padding:10px 12px; background:var(--brand2); color:#fff;
+      overflow:auto; white-space:nowrap;
+    }
+    .catbar a{color:#fff;text-decoration:none;opacity:.95}
+    .catbar a:hover{text-decoration:underline}
+
+    /* ---------- DRAWER ---------- */
+    .drawer{
+      position:fixed; inset:0 auto 0 0; width:280px; transform:translateX(-100%);
+      background:#fff; z-index:1200; transition:transform .25s ease;
+      box-shadow: 2px 0 14px rgba(0,0,0,.25);
+    }
+    .drawer.open{transform:none}
+    .drawer-header{display:flex;justify-content:space-between;align-items:center;
+      padding:14px 16px; background:var(--brand2); color:#fff}
+    .drawer-list{list-style:none;padding:10px 0}
+    .drawer-list li a{display:block;padding:12px 16px;color:#111;text-decoration:none}
+    .drawer-list li a:hover{background:#f3f3f3}
+    .overlay{position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1100; display:none}
+
+    /* ---------- HERO ---------- */
+    .hero{position:relative; max-width:1500px; margin:0 auto}
+    .slides{display:flex; overflow:hidden; scroll-behavior:smooth}
+    .slides img{min-width:100%; display:block}
+    .carousel-btn{
+      position:absolute; top:40%; transform:translateY(-50%);
+      background:#fff;border:0;width:44px;height:44px;border-radius:50%;
+      box-shadow:0 2px 6px rgba(0,0,0,.3); cursor:pointer; opacity:.9;
+    }
+    .prev{left:12px} .next{right:12px}
+
+    /* ---------- TILES ---------- */
+    .tiles{
+      max-width:1500px;margin:-90px auto 20px;
+      padding:0 12px; display:grid; gap:12px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+    .tile{background:#fff;padding:16px;border-radius:6px;display:flex;flex-direction:column;gap:10px}
+    .tile h3{font-size:1.05rem}
+    .tile img{width:100%;border-radius:4px}
+    .cta{color:var(--link);text-decoration:none;font-weight:600}
+
+    /* ---------- STRIP ---------- */
+    .strip{max-width:1500px;margin:0 auto 24px;padding:12px}
+    .strip h2{margin:8px 0 12px}
+    .card-row{display:flex;gap:12px;overflow:auto;padding:2px}
+    .card{min-width:220px;background:#fff;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:8px}
+    .card img{width:100%;border:1px solid #eee;border-radius:4px}
+    .price{font-weight:700}
+    .add{border:0;background:var(--accent);padding:8px;border-radius:8px;cursor:pointer}
+
+    /* ---------- FOOTER ---------- */
+    .footer{background:#131a22;color:#ddd}
+    .backtotop{display:block;text-align:center;padding:12px;background:#17202a;color:#fff;text-decoration:none}
+    .cols{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 12px}
+    .cols h4{color:#fff;margin-bottom:8px}
+    .cols a{display:block;color:#ddd;text-decoration:none;margin:4px 0}
+    .cols a:hover{text-decoration:underline}
+    .mini{text-align:center;padding:14px 12px;border-top:1px solid #2b3640;opacity:.8}
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="topbar">
+    <button id="menuBtn" class="icon-btn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="logo" href="#">MentiVox</a>
+
+    <div class="deliver-to">
+      <div class="pin">🎯</div>
+      <div class="txt">
+        <small>Guidance for</small>
+        <strong>Students & Professionals</strong>
+      </div>
+    </div>
+
+    <form class="search" action="#">
+      <select><option>All</option><option>Mentors</option><option>Learning</option></select>
+      <input type="search" placeholder="Search mentors, growth paths…"/>
+      <button>🔍</button>
+    </form>
+
+    <nav class="quick-actions">
+      <a href="#"><small>Hello</small><strong>My Profile</strong></a>
+      <a href="#"><small>My</small><strong>Sessions</strong></a>
+      <a href="#">📅 <span id="cartCount">0</span></a>
+    </nav>
+  </header>
+
+  <!-- Category Bar -->
+  <div class="catbar">
+    <button id="catBtn" class="icon-btn">☰</button>
+    <a href="#">AI Mentor</a>
+    <a href="#">Human Mentors</a>
+    <a href="#">Learning Tracks</a>
+    <a href="#">Community Zone</a>
+    <a href="#">Progress Tracker</a>
+  </div>
+
+  <!-- Drawer -->
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <strong>Explore MentiVox</strong>
+      <button id="closeDrawer" class="icon-btn">✕</button>
+    </div>
+    <ul class="drawer-list">
+      <li><a href="#">Life Mapping</a></li>
+      <li><a href="#">Ask AI Mentor</a></li>
+      <li><a href="#">Book Human Mentor</a></li>
+      <li><a href="#">Learning Blocks</a></li>
+      <li><a href="#">Progress Tracker</a></li>
+      <li><a href="#">Community Zone</a></li>
+    </ul>
+  </aside>
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <button class="carousel-btn prev" id="prevSlide">‹</button>
+    <div class="slides" id="slides">
+      <img src="https://picsum.photos/1600/500?random=100" alt="Mentorship"/>
+      <img src="https://picsum.photos/1600/500?random=101" alt="AI Mentor"/>
+      <img src="https://picsum.photos/1600/500?random=102" alt="Community"/>
+    </div>
+    <button class="carousel-btn next" id="nextSlide">›</button>
+  </section>
+
+  <!-- Tiles -->
+  <section class="tiles">
+    <article class="tile"><h3>AI Mentor 24/7</h3><img src="https://picsum.photos/400/260?random=200"/><a href="#" class="cta">Chat Now</a></article>
+    <article class="tile"><h3>Book Human Mentors</h3><img src="https://picsum.photos/400/260?random=201"/><a href="#" class="cta">Meet Experts</a></article>
+    <article class="tile"><h3>Learning Tracks</h3><img src="https://picsum.photos/400/260?random=202"/><a href="#" class="cta">Start Journey</a></article>
+    <article class="tile"><h3>Community Zone</h3><img src="https://picsum.photos/400/260?random=203"/><a href="#" class="cta">Join Now</a></article>
+  </section>
+
+  <!-- Featured Mentors -->
+  <section class="strip">
+    <h2>Featured Mentors</h2>
+    <div class="card-row">
+      <div class="card"><img src="https://picsum.photos/240/240?random=301"/><p class="title">Dr. Priya – Career Coach</p><p class="price">Career Growth</p><button class="add">Book Session</button></div>
+      <div class="card"><img src="https://picsum.photos/240/240?random=302"/><p class="title">Arjun – Startup Mentor</p><p class="price">Entrepreneurship</p><button class="add">Book Session</button></div>
+      <div class="card"><img src="https://picsum.photos/240/240?random=303"/><p class="title">Meera – Wellness Mentor</p><p class="price">Emotional Balance</p><button class="add">Book Session</button></div>
+      <div class="card"><img src="https://picsum.photos/240/240?random=304"/><p class="title">Raj – Tech Mentor</p><p class="price">AI & Coding</p><button class="add">Book Session</button></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <a href="#" class="backtotop">Back to top ↑</a>
+    <div class="cols">
+      <div><h4>About</h4><a href="#">Vision</a><a href="#">Team</a></div>
+      <div><h4>Connect</h4><a href="#">Community</a><a href="#">LinkedIn</a></div>
+      <div><h4>For Mentors</h4><a href="#">Apply</a><a href="#">Partnerships</a></div>
+      <div><h4>Support</h4><a href="#">Help</a><a href="#">Privacy</a></div>
+    </div>
+    <p class="mini">© 2025 MentiVox – Prototype</p>
+  </footer>
+
+  <script>
+    const drawer=document.getElementById('drawer'),overlay=document.getElementById('overlay');
+    document.getElementById('menuBtn').onclick=()=>{drawer.classList.add('open');overlay.style.display='block';}
+    document.getElementById('catBtn').onclick=()=>{drawer.classList.add('open');overlay.style.display='block';}
+    document.getElementById('closeDrawer').onclick=()=>{drawer.classList.remove('open');overlay.style.display='none';}
+    overlay.onclick=()=>{drawer.classList.remove('open');overlay.style.display='none';}
+
+    const slides=document.getElementById('slides');let index=0;
+    function go(i){const total=slides.children.length;index=(i+total)%total;
+      slides.scrollTo({left:slides.clientWidth*index,behavior:'smooth'});}
+    document.getElementById('prevSlide').onclick=()=>go(index-1);
+    document.getElementById('nextSlide').onclick=()=>go(index+1);
+    setInterval(()=>go(index+1),5000);
+
+    let cart=0;
+    document.querySelectorAll('.add').forEach(btn=>{
+      btn.onclick=()=>{cart++;document.getElementById('cartCount').textContent=cart;}
+    });
+    document.querySelector('.backtotop').onclick=e=>{
+      e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});
+    }
+  </script>
+</body>
+</html>
