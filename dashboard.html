@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MentiVox Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e1e60, #3f3fbf);
+      color: white;
+      overflow-x: hidden;
+      transition: background 1.5s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== Topbar ===== */
+    .topbar {
+      background: rgba(0,0,0,0.3);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; }
+    .topbar a { color:#fff; margin-left:15px; text-decoration:none; font-weight:500; }
+    .topbar a:hover { color:#00f0ff; }
+
+    /* ===== Sections ===== */
+    .section {
+      padding: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .section h2 { margin-bottom: 0.5rem; font-size: 1.4rem; }
+
+    /* ===== Progress Bar ===== */
+    .progress-bar {
+      width: 100%; height: 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px; overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .progress-fill {
+      width: 60%; height: 100%;
+      background: #00f0ff;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%{opacity:.6} 50%{opacity:1} 100%{opacity:.6} }
+
+    /* ===== Cards ===== */
+    .cards {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+    }
+    .card {
+      flex: 1 1 200px;
+      background: rgba(255,255,255,0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .card:hover { transform: scale(1.05); background: rgba(255,255,255,0.2); }
+
+    /* ===== Mood Slider ===== */
+    .mood-slider {
+      width: 100%;
+      margin-top: 1rem;
+      appearance: none;
+      height: 10px; border-radius: 5px; background: #fff; outline: none;
+    }
+    .mood-slider::-webkit-slider-thumb {
+      appearance: none; width: 20px; height: 20px;
+      background: #00f0ff; border-radius: 50%;
+      cursor: pointer; transition: transform 0.2s ease;
+    }
+    .mood-slider:active::-webkit-slider-thumb { transform: scale(1.2); }
+    .energy-message { margin-top: 1rem; font-style: italic; font-size: 1rem; }
+
+    /* ===== Avatar ===== */
+    .avatar {
+      font-size: 3rem;
+      animation: bounce 2s infinite;
+      transition: transform 0.3s ease;
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.3);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="logo">MENTIVOX</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Sections -->
+  <div class="section">
+    <h2 id="welcomeMsg">Welcome back 👋</h2>
+    <p>Your energy today shapes your tomorrow.</p>
+  </div>
+
+  <div class="section">
+    <h2>Progress Tracker</h2>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <p>Need a rest day? That’s growth too.</p>
+  </div>
+
+  <div class="section">
+    <h2>Learning Blocks</h2>
+    <div class="cards">
+      <div class="card">🚀 Goal Setting</div>
+      <div class="card">🧘 Mindset Mastery</div>
+      <div class="card">🎨 Creative Thinking</div>
+      <div class="card">🧑‍🏫 Mentor Spotlight: <b>Dr. A. Sharma</b><br><small>AI & Startups Expert</small></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Daily Check-In</h2>
+    <input type="range" min="0" max="100" value="50" class="mood-slider" id="energySlider" />
+    <p class="energy-message" id="energyMessage">Feeling balanced. Let’s keep the flow steady.</p>
+  </div>
+
+  <div class="section">
+    <h2>Your Companion</h2>
+    <div class="avatar" id="avatar">🤖</div>
+    <p>Always watching your growth glow.</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 MentiVox. Grow with guidance, powered by AI + Humans.</p>
+  </footer>
+
+  <script>
+    const slider = document.getElementById("energySlider");
+    const message = document.getElementById("energyMessage");
+    const avatar = document.getElementById("avatar");
+
+    // Username from login
+    const storedUser = localStorage.getItem("username");
+    if(storedUser) {
+      document.getElementById("welcomeMsg").textContent = "Welcome back, " + storedUser + " 👋";
+    }
+
+    // Mood slider effect
+    slider.addEventListener("input", () => {
+      const val = parseInt(slider.value);
+      if (val < 30) {
+        message.textContent = "Feeling low? Let’s keep it light today.";
+        document.body.style.background = "linear-gradient(135deg, #1e1e60, #2c2c80)";
+        avatar.style.transform = "scale(0.9)";
+      } else if (val < 70) {
+        message.textContent = "Feeling balanced. Let’s keep the flow steady.";
+        document.body.style.background = "linear-gradient(135deg, #1e1e60, #3f3fbf)";
+        avatar.style.transform = "scale(1)";
+      } else {
+        message.textContent = "Feeling 🔥? Let’s go beast mode.";
+        document.body.style.background = "linear-gradient(135deg, #1e1e60, #5f5fff)";
+        avatar.style.transform = "scale(1.2)";
+      }
+    });
+  </script>
+</body>
+</html>

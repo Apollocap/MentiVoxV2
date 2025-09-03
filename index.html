@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MentiVox – Empower Your Growth</title>
+  <style>
+    :root {
+      --brand:#2c2e6a;
+      --brand2:#3c3f82;
+      --accent:#4cafef;
+      --link:#00e5ff;
+      --bg:#f3f4f8;
+      --text:#111;
+      --card-bg:rgba(255,255,255,0.9);
+      --footer-bg:rgba(19,26,34,0.95);
+      --footer-text:#ddd;
+    }
+    body.dark {
+      --bg:#111827;
+      --text:#f3f4f8;
+      --card-bg:rgba(34,36,48,0.9);
+      --footer-bg:#000;
+      --footer-text:#aaa;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg); color:var(--text);
+      overflow-x:hidden; transition:background .4s,color .4s;
+    }
+
+    /* ====== Animated Gradient Background ====== */
+    body::before {
+      content:""; position:fixed; inset:0;
+      background:linear-gradient(270deg,#2c2e6a,#3c3f82,#4cafef,#6a82fb);
+      background-size:600% 600%;
+      animation:gradientShift 18s ease infinite;
+      z-index:-1;
+    }
+    @keyframes gradientShift {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* ====== Top Bar ====== */
+    .topbar {
+      position:sticky; top:0; z-index:1000;
+      background:rgba(44,46,106,0.9);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 20px; color:#fff;
+    }
+    .logo{font-size:1.4rem;font-weight:700;letter-spacing:1px;color:#fff;text-decoration:none}
+    .menu-btn{font-size:1.4rem;cursor:pointer;background:none;border:0;color:#fff}
+    .actions a{margin-left:18px;color:#fff;text-decoration:none;font-weight:500}
+
+    /* ====== Floating Toggles ====== */
+    .theme-toggle, .view-toggle {
+      position: fixed; z-index:2000;
+      width: 44px; height: 44px;
+      border: none; border-radius: 50%;
+      background: var(--accent);
+      color: #fff; font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      transition: background .3s, transform .2s;
+    }
+    .theme-toggle { top:16px; right:16px; }
+    .view-toggle { bottom:16px; right:16px; }
+    .theme-toggle:hover,.view-toggle:hover {
+      background:#379ddf; transform:scale(1.1);
+    }
+
+    /* ====== Hero Section ====== */
+    .hero {
+      text-align:center; padding:80px 20px;
+      color:#fff; max-width:900px; margin:auto;
+    }
+    .hero h1 {
+      font-size:2.6rem; margin-bottom:20px; line-height:1.3;
+      animation:fadeIn 2s ease;
+    }
+    .hero p {
+      font-size:1.2rem; opacity:.9; margin-bottom:30px;
+      animation:fadeIn 3s ease;
+    }
+    @keyframes fadeIn {from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+    .hero .typing {
+      font-weight:600; font-size:1.3rem;
+      border-right:2px solid #fff; white-space:nowrap; overflow:hidden;
+      width:0; animation:typing 6s steps(30,end) infinite alternate;
+    }
+    @keyframes typing {
+      0%{width:0}
+      50%{width:100%}
+      100%{width:0}
+    }
+    .cta-btn {
+      background:#fff; color:var(--brand);
+      padding:12px 24px; border-radius:8px;
+      font-weight:600; text-decoration:none;
+      transition:.3s; display:inline-block; margin-top:20px;
+    }
+    .cta-btn:hover { background:var(--accent); color:#fff; }
+
+    /* ====== Features Grid ====== */
+    .features {
+      display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      max-width:1100px; margin:60px auto; padding:0 20px;
+    }
+    .feature {
+      background:var(--card-bg);
+      padding:20px; border-radius:12px; text-align:center;
+      transition:transform .3s ease;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+    .feature:hover{transform:translateY(-6px)}
+    .feature span {
+      font-size:2rem; display:block; margin-bottom:12px;
+    }
+
+    /* ====== Cards ====== */
+    .cards {
+      max-width:1100px; margin:40px auto; padding:0 20px;
+      display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    }
+    .card {
+      background:var(--card-bg); border-radius:12px; padding:24px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.2); text-align:center;
+      transition:transform .3s ease;
+    }
+    .card:hover{transform:scale(1.05)}
+    .card h3{margin-bottom:12px}
+
+    /* ====== Footer ====== */
+    .footer {
+      background:var(--footer-bg); color:var(--footer-text); text-align:center;
+      padding:30px 20px; margin-top:60px;
+    }
+    .footer a{color:var(--link);text-decoration:none}
+  </style>
+</head>
+<body>
+
+  <!-- Floating Toggles -->
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+  <button class="view-toggle" id="viewToggle">📱</button>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <button class="menu-btn">☰</button>
+    <a href="index.html" class="logo">MentiVox</a>
+    <nav class="actions">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Clarity. Growth. <br>Mentorship Reimagined.</h1>
+    <p>Where AI precision meets human empathy 🚀</p>
+    <div class="typing">Grow with AI ✨ Learn with Mentors 💡 Succeed with Community 🌐</div>
+    <a href="login.html" class="cta-btn">Get Started</a>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="feature"><span>🤖</span><h3>AI Mentor</h3><p>24/7 guidance powered by AI.</p></div>
+    <div class="feature"><span>👩‍🏫</span><h3>Human Mentors</h3><p>Book sessions with real experts.</p></div>
+    <div class="feature"><span>📚</span><h3>Learning Tracks</h3><p>Structured paths for growth.</p></div>
+    <div class="feature"><span>🌐</span><h3>Community Zone</h3><p>Connect, share, and grow together.</p></div>
+  </section>
+
+  <!-- Mentor Cards -->
+  <section class="cards">
+    <div class="card"><h3>Career Mentor</h3><p>Plan your future with confidence.</p></div>
+    <div class="card"><h3>Startup Mentor</h3><p>Turn ideas into thriving ventures.</p></div>
+    <div class="card"><h3>Wellness Mentor</h3><p>Balance emotional + professional life.</p></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 MentiVox – Prototype blending AI + Human mentorship.<br>
+    <a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy</a></p>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeBtn=document.getElementById('themeToggle');
+    themeBtn.addEventListener('click',()=>{
+      document.body.classList.toggle('dark');
+      themeBtn.textContent=document.body.classList.contains('dark')?"☀️":"🌙";
+    });
+
+    // View Toggle
+    const viewBtn=document.getElementById('viewToggle');
+    viewBtn.addEventListener('click',()=>{
+      document.body.classList.toggle('mobile');
+      viewBtn.textContent=document.body.classList.contains('mobile')?"💻":"📱";
+    });
+  </script>
+</body>
+</html>

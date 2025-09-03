@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About – MentiVox</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: #fff;
+      background: #111827;
+      overflow-x: hidden;
+    }
+
+    /* Animated Gradient */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(270deg, #2c2e6a, #3c3f82, #4cafef, #6a82fb, #ff4f81);
+      background-size: 600% 600%;
+      animation: gradientShift 20s ease infinite;
+      z-index: -1;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Topbar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      z-index: 1000;
+    }
+    .topbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0 10px;
+      transition: 0.3s;
+    }
+    .topbar a:hover { color: #4cafef; }
+    .logo { font-size: 1.3rem; font-weight: 700; }
+
+    /* Sections */
+    section {
+      padding: 80px 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #4cafef;
+      display: inline-block;
+      padding-bottom: 8px;
+    }
+    h2 {
+      font-size: 1.8rem;
+      color: #4cafef;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      background: rgba(255,255,255,0.05);
+      padding: 18px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #ddd;
+      background: rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <a href="index.html" class="logo">MentiVox</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Content -->
+  <section>
+    <h1>About MentiVox</h1>
+    <p>MentiVox is more than a platform — it’s a living movement to make mentorship accessible, intelligent, and deeply human.</p>
+  </section>
+
+  <section>
+    <h2>Our Story</h2>
+    <p>We created MentiVox to combine AI precision with human empathy, ensuring every learner finds guidance when they need it most.</p>
+  </section>
+
+  <section>
+    <h2>Tribute to Aaron Swartz 🕊</h2>
+    <p>Aaron Swartz fought for freedom of knowledge. MentiVox honors his legacy by keeping mentorship open, free, and universal.</p>
+  </section>
+
+  <section>
+    <h2>Meet the Creator 👤</h2>
+    <p>Hi, I’m <b>Piyush Chauhan</b>. MentiVox is my mission to fix mentorship and make growth universal, fair, and inspiring.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 MentiVox. Inspiring growth through mentorship.</p>
+  </footer>
+
+  <!-- Scroll fade-in -->
+  <script>
+    const sections = document.querySelectorAll("section");
+    window.addEventListener("scroll", () => {
+      const trigger = window.innerHeight * 0.8;
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < trigger) sec.classList.add("visible");
+      });
+    });
+  </script>
+</body>
+</html>
